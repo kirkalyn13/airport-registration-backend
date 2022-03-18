@@ -72,7 +72,7 @@ app.post('/login', async (req,res) => {
                         console.log(`User Login: ${username}`)
                         res.send({
                             username: username,
-                            role: userRef[0].role,
+                            userNumber: userRef[0].userNumber,
                             login: true,
                         })
                     }
@@ -80,7 +80,7 @@ app.post('/login', async (req,res) => {
                         console.log("Access Denied: Invalid Credentials.")
                         res.send({
                             username: '',
-                            role: '',
+                            userNumber: '',
                             login: false,
                     })
                 }
