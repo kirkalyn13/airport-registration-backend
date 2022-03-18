@@ -4,7 +4,6 @@ const cors = require('cors')
 //const fs = require('fs')
 //const fastcsv = require('fast-csv')
 const bcrypt = require('bcrypt')
-//const cron = require('node-cron')
 //const moment = require('moment')
 const {onChangeFileHandler} = require('./functions')
 
@@ -44,12 +43,15 @@ app.post('/createuser', async (req, res) => {
             if(err){
                 console.log(err)
             }else{
-                res.send(`Registered User: ${username}, Name: ${lastName}, ${firstName} ${middleName}`)
+                console.log(`Registered User: ${username}, Name: ${lastName}, ${firstName} ${middleName}`)
+                res.send({
+                        username: username,
+                        login: true,
+                    })
             }
         })
     }catch{
         res.status(500).send()
-        console.log("failed")
     }
 })
 
