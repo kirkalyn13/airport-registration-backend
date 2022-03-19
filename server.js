@@ -1,11 +1,7 @@
 const express = require('express')
 const mysql = require('mysql')
 const cors = require('cors')
-//const fs = require('fs')
-//const fastcsv = require('fast-csv')
 const bcrypt = require('bcrypt')
-//const moment = require('moment')
-const {onChangeFileHandler} = require('./functions')
 
 const app = express()
 const port = process.env.PORT || 3005
@@ -48,7 +44,6 @@ app.post('/createuser', async (req, res) => {
         const address = req.body.address
         const email = req.body.email
         const contactNumber = req.body.contactNumber
-        //const photo = onChangeFileHandler(req.body.photo)
         const inputValues = [username, hashedPassword, lastName, firstName, middleName, sex, birthday, address, email, contactNumber]
         db.query('INSERT INTO `users`(`username`, `password`, `lastName`, `firstName`, `middleName`, `sex`, `birthday`, `address`, `email`, `contactNumber`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
         inputValues, (err, result) =>{
@@ -77,7 +72,6 @@ app.put('/edit/:id', (req, res) => {
     const address = req.body.address
     const email = req.body.email
     const contactNumber = req.body.contactNumber
-    //const photo = onChangeFileHandler(req.body.photo)
     const updateQuery = `UPDATE users SET lastName='${lastName}',firstName='${firstName}',middleName='${middleName}',sex='${sex}',
     birthday='${birthday}',address='${address}',email='${email}',contactNumber='${contactNumber}' WHERE userNumber = ${req.params.id}`
     db.query(updateQuery,(err,result) => {
@@ -85,6 +79,19 @@ app.put('/edit/:id', (req, res) => {
             console.log(err)
         }else{
             console.log(`Edited User ${req.params.id} Information.`)
+        }
+    })
+})
+
+//Upload Photo
+app.put('/upload/:id', (req, res) => {
+    const photo = req.body.photo
+    const updateQuery = `UPDATE users SET photo='${photo}' WHERE userNumber = ${req.params.id}`
+    db.query(updateQuery,(err,result) => {
+        if(err){
+            console.log(err)
+        }else{
+            console.log(`Uploaded User ${req.params.id} Photo.`)
         }
     })
 })
