@@ -30,7 +30,7 @@ const db = mysql_1.default.createConnection({
 });
 //Fetch User Information
 app.get('/information/:id', (req, res) => {
-    const infoQuery = `SELECT  lastName, firstName, middleName, sex, birthday, address, email, contactNumber, photo FROM users WHERE userNumber = ${req.params.id}`;
+    const infoQuery = `SELECT  lastName, firstName, middleName, sex, birthday, address, email, contactNumber, flightNumber, photo FROM users WHERE userNumber = ${req.params.id}`;
     db.query(infoQuery, (err, result) => {
         if (err) {
             console.log(err);
@@ -83,8 +83,9 @@ app.put('/edit/:id', (req, res) => {
     const address = req.body.address;
     const email = req.body.email;
     const contactNumber = req.body.contactNumber;
+    const flightNumber = req.body.flightNumber;
     const updateQuery = `UPDATE users SET lastName='${lastName}',firstName='${firstName}',middleName='${middleName}',sex='${sex}',
-    birthday='${birthday}',address='${address}',email='${email}',contactNumber='${contactNumber}' WHERE userNumber = ${req.params.id}`;
+    birthday='${birthday}',address='${address}',email='${email}',contactNumber='${contactNumber}',flightNumber='${flightNumber}' WHERE userNumber = ${req.params.id}`;
     db.query(updateQuery, (err, result) => {
         if (err) {
             console.log(err);
