@@ -21,7 +21,7 @@ const db: Connection = mysql.createConnection({
 
 //Fetch User Information
 app.get('/information/:id', (req: Request, res: Response) =>{
-    const infoQuery: string = `SELECT  lastName, firstName, middleName, sex, birthday, address, email, contactNumber, photo FROM users WHERE userNumber = ${req.params.id}`
+    const infoQuery: string = `SELECT  lastName, firstName, middleName, sex, birthday, address, email, contactNumber, flightNumber, photo FROM users WHERE userNumber = ${req.params.id}`
     db.query(infoQuery,(err,result) => {
         if(err){
             console.log(err)
@@ -73,8 +73,9 @@ app.put('/edit/:id', (req: Request, res: Response) => {
     const address: string = req.body.address
     const email: string = req.body.email
     const contactNumber: number = req.body.contactNumber
+    const flightNumber: number = req.body.flightNumber
     const updateQuery: string = `UPDATE users SET lastName='${lastName}',firstName='${firstName}',middleName='${middleName}',sex='${sex}',
-    birthday='${birthday}',address='${address}',email='${email}',contactNumber='${contactNumber}' WHERE userNumber = ${req.params.id}`
+    birthday='${birthday}',address='${address}',email='${email}',contactNumber='${contactNumber}',flightNumber='${flightNumber}' WHERE userNumber = ${req.params.id}`
     db.query(updateQuery,(err,result) => {
         if(err){
             console.log(err)
